@@ -3,20 +3,25 @@ import './Feed.css'
 import Post from './Post'
 import TweetBox from './TweetBox'
 import db from './firebase'
+import FlipMove from 'react-flip-move'
 
 function Feed() {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        db.collection('posts').onSnapshot((snapshot) => {
-            return (
-                setPosts(snapshot.docs.map((doc) => {
-                    return (
-                        doc.data()
-                    )
-                }))
-            )
-        })
+        db
+            .collection('posts')
+            .orderBy('timestamp', 'desc')
+            .onSnapshot((snapshot) => {
+                return (
+                    setPosts(snapshot.docs.map((doc) => {
+                        return ({
+                            id: doc.id,
+                            data: doc.data()
+                        })
+                    }))
+                )
+            })
     }, [])
 
     return (
@@ -30,20 +35,23 @@ function Feed() {
             <TweetBox />
             {/**posts */}
 
-            {
-                posts.map((post) => {
-                    return (
-                        <Post
-                            displayName={post.displayName}
-                            username={post.username}
-                            verified={post.verified}
-                            image={post.image}
-                            text={post.text}
-                            avatar={post.avatar}
-                        />
-                    )
-                })
-            }
+            <FlipMove>
+                {
+                    posts.map((post) => {
+                        return (
+                            <Post key={post.id}
+                                displayName={post.data.displayName}
+                                username={post.data.username}
+                                verified={post.data.verified}
+                                image={post.data.image}
+                                text={post.data.text}
+                                avatar={post.data.avatar}
+                            />
+                        )
+                    })
+                }
+            </FlipMove>
+
 
             {
                 /*<Post
