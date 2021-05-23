@@ -15,27 +15,28 @@ function Post({
     image,
     avatar
 }) {
+
     return (
         <div className='post'>
             <div className='post__avatar'>
-                <Avatar src="https://kajabi-storefronts-production.global.ssl.fastly.net/kajabi-storefronts-production/themes/284832/settings_images/rLlCifhXRJiT0RoN2FjK_Logo_roundbackground_black.png" />
+                <Avatar src={avatar} />
             </div>
             <div className='post__body'>
                 <div className='post__header'>
                     <div className='post__headerText'>
                         <h3>
-                            akshit
+                            {displayName}
                             <span className='post__headerSpecial'>
-                                <VerifiedUserIcon className='post__badge' />
-                                @akshit
+                                {verified && (<VerifiedUserIcon className='post__badge' />)}
+                                {username}
                             </span>
                         </h3>
                     </div>
                     <div className='post__headerDescription'>
-                        <p>build</p>
+                        <p>{text}</p>
                     </div>
                 </div>
-                <img src='https://images.unsplash.com/photo-1546188994-07c34f6e5e1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZnV0dXJlfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80' alt='' />
+                <img src={image} alt='' />
                 <div className="post__footer">
                     <ChatBubbleOutlineIcon fontSize="small" />
                     <RepeatIcon fontSize="small" />
