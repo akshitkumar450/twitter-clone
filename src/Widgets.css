@@ -1,3 +1,33 @@
 .widgets {
   flex: 0.25;
 }
+.widgets__input {
+  display: flex;
+  align-items: center;
+  background-color: var(--twitter-background);
+  border-radius: 20px;
+  padding: 10px;
+  margin: 10px 0 0 20px;
+}
+.widgets__input > input {
+  width: 100%;
+  border: none;
+  padding: 8px;
+  border-radius: 20px;
+  background-color: var(--twitter-background);
+}
+
+.widgets__input > input:focus {
+  outline: none;
+}
+.widgets__widgetContainer {
+  margin-top: 15px;
+  margin-left: 20px;
+  padding: 20px;
+  background-color: #f5f8fa;
+  border-radius: 20px;
+}
+.widgets__widgetContainer > h2 {
+  font-size: 18px;
+  font-weight: 800;
+}
