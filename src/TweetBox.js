@@ -1,17 +1,45 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './TweetBox.css'
 import { Avatar, Button } from "@material-ui/core";
+import db from './firebase';
 
 function TweetBox() {
+    const [inputMessage, setInputMessage] = useState('')
+    const [image, setImage] = useState('')
+
+    const sendTweet = (e) => {
+        e.preventDefault()
+        db.collection('posts').add({
+            displayName: 'emilly',
+            username: '@emily',
+            verified: true,
+            text: inputMessage,
+            image: image,
+            avatar: image
+
+        })
+
+        setImage('')
+        setInputMessage('')
+    }
+
     return (
         <div className='tweetbox'>
             <form>
                 <div className='tweetbox__input'>
                     <Avatar src="https://kajabi-storefronts-production.global.ssl.fastly.net/kajabi-storefronts-production/themes/284832/settings_images/rLlCifhXRJiT0RoN2FjK_Logo_roundbackground_black.png" />
-                    <input type='text' placeholder="what's happening"></input>
+                    <input
+                        onChange={(e) => setInputMessage(e.target.value)}
+                        type='text'
+                        placeholder="what's happening">
+                    </input>
                 </div>
-                <input className='tweetbox__imageInput' placeholder="enter image url"></input>
-                <Button className='tweetbox__tweetBtn'>Tweet</Button>
+                <input
+                    onChange={(e) => setImage(e.target.value)}
+                    className='tweetbox__imageInput'
+                    placeholder="enter image url">
+                </input>
+                <Button onClick={sendTweet} type='submit' className='tweetbox__tweetBtn'>Tweet</Button>
             </form>
         </div>
     )
